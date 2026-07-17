@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+:root{
+    --background: #18181B;
+    --surface: #27272A;
+    --text: #F5F5F5;
+    --text-secondary: #B3B3B3;
+    --details: #947e2fe3;
+    --details-secondary: #c0a646fa;
+    --danger: #EF4444;
+    --success: #22C55E;
+
+    --space-small: 4px;
+    --space-medium: 8px;
+    --space-large: 16px;
+    --space-xlarge: 24px;
+}
+
+body{
+    background-color: var(--main-bg);
+}
