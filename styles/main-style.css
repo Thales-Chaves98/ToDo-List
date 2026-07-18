@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 *, *::before, *::after{
     margin: 0;
     padding: 0;
@@ -7,14 +10,15 @@
 }
 
 :root{
-    --background: #18181B;
-    --surface: #27272A;
-    --text: #F5F5F5;
-    --text-secondary: #B3B3B3;
-    --accent: #947e2fe3;
-    --accent-hover: #c0a646fa;
+    --background: #0B0C10;
+    --surface: #1F2833;
+    --text: #E5E5E5;
+    --text-secondary: #afadad;
+    --accent: #D3AF37 ;
+    --accent-hover: #d8a953;
     --danger: #EF4444;
     --success: #22C55E;
+
 
     --space-sm: 4px;
     --space-md: 8px;
@@ -28,4 +32,43 @@ body{
     min-height: 100vh;
 
     font-family: Arial, Helvetica, sans-serif;
+}
+main{
+    display: flex;
+    flex-direction: column;
+
+    max-width: 85vw;
+    align-items: center;
+    
+    margin: auto;
+}
+main h1{
+    font-family: "Cinzel";
+
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+}
+#task-form form{
+    display: flex;
+    gap: var(--space-sm);
+    min-width: 80vw;
+}
+#input-task{
+    flex: 1; 
+    padding: var(--space-sm);
+    border-radius: var(--space-sm);
+    border: solid 1px var(--text-secondary);
+
+    font-family: "Montserrat";
+}
+
+#add-btn{
+    background-color: var(--accent);
+    color: var(--background);
+
+    padding: var(--space-md);
+    border-radius: var(--space-sm);
+    border: solid 1px var(--accent-hover);
+    font-family: "Montserrat";
+    margin-left: .5em;
 }
