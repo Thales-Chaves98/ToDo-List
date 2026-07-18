@@ -23,5 +23,8 @@ form.addEventListener("submit",  (event) => {
 });
 
 function renderTask(){
+    const list = document.querySelector(".tasks-container")
+    list.innerHTML = "";
 
+    
 }
