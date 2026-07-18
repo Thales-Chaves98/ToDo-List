@@ -85,3 +85,10 @@ main{
 #add-btn:hover{
     background: var(--accent-hover);
 }
+
+#task-list{
+    margin: auto;
+}
+#tasks-conatiner{
+    font-family: "Montserrat";
+}

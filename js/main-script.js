@@ -18,13 +18,19 @@ form.addEventListener("submit",  (event) => {
         done,
     };
     tasks.push(task)
-
-    console.log(tasks)
+    taskInput.value = "";
+    renderTasks();
 });
 
-function renderTask(){
-    const list = document.querySelector(".tasks-container")
-    list.innerHTML = "";
+function renderTasks(){
+    const listContainer = document.getElementById("tasks-container")
+    listContainer.innerHTML = "";
 
-    
+    tasks.forEach((task) => {
+        const taskLi = document.createElement("li");
+        taskLi.innerHTML = `
+        ${task.taskName}
+        `;
+        listContainer.appendChild(taskLi)
+    })
 }
