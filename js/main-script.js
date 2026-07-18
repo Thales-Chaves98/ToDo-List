@@ -1,10 +1,27 @@
 const form = document.querySelector(".task-form");
-const inputTxt = document.getElementById("input-task")
+const taskInput = document.getElementById("input-task")
 
-let taskTxt;
+const tasks = [];
 
 form.addEventListener("submit",  (event) => {
     event.preventDefault()
-    taskTxt = inputTxt.value;
-    console.log(taskTxt)
+
+    const done = false;
+    const taskName = taskInput.value.trim();
+    
+    if(taskName === ""){
+        console.log("vazio")
+        return
+    }
+    const task = {
+        taskName,
+        done,
+    };
+    tasks.push(task)
+
+    console.log(tasks)
 });
+
+function renderTask(){
+
+}
