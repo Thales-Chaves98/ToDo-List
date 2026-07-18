@@ -15,7 +15,7 @@
     --text: #E5E5E5;
     --text-secondary: #afadad;
     --accent: #D3AF37 ;
-    --accent-hover: #d8a953;
+    --accent-hover: #b59410;
     --danger: #EF4444;
     --success: #22C55E;
 
@@ -24,42 +24,53 @@
     --space-md: 8px;
     --space-lg: 16px;
     --space-xl: 24px;
+
+    --shadow: 0 4px 12px rgb(0 0 0 / .25);
 }
 
 body{
-    background-color: var(--background);
-    color: var(--text);
     min-height: 100vh;
 
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+
+    font-family: "Montserrat", sans-serif;
 }
 main{
     display: flex;
     flex-direction: column;
 
-    max-width: 85vw;
-    align-items: center;
-    
+    width: 90vw;
     margin: auto;
 }
-main h1{
+.form-title{
     font-family: "Cinzel";
+    font-size: 1.7em;
+    text-align: center;
 
     margin-top: var(--space-xl);
     margin-bottom: var(--space-md);
+    
 }
-#task-form form{
+
+.task-actions{
+    width: 100%;;
+}
+.task-form{
     display: flex;
-    gap: var(--space-sm);
-    min-width: 80vw;
+    gap: var(--space-md);
 }
 #input-task{
-    flex: 1; 
+    flex: 1;
+
     padding: var(--space-sm);
     border-radius: var(--space-sm);
     border: solid 1px var(--text-secondary);
 
-    font-family: "Montserrat";
+    font-family: inherit;
+}
+#input-task::placeholder{
+    text-align: center;
 }
 
 #add-btn{
@@ -69,6 +80,8 @@ main h1{
     padding: var(--space-md);
     border-radius: var(--space-sm);
     border: solid 1px var(--accent-hover);
-    font-family: "Montserrat";
-    margin-left: .5em;
+    font-family: inherit; 
+}
+#add-btn:hover{
+    background: var(--accent-hover);
 }
