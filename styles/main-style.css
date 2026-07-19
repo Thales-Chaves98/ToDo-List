@@ -14,11 +14,12 @@
     --surface: #1F2833;
     --text: #E5E5E5;
     --text-secondary: #afadad;
-    --accent: #D3AF37 ;
-    --accent-hover: #b59410;
+    --accent-gold: #D3AF37 ;
+    --accent-gold-hover: #b59410;
     --danger: #EF4444;
     --success-green: #087e33;
-    --success-blue: #5cc1f0;
+    --accent: #3dbed4;
+    --accent-dark: #0c5070;
 
 
     --space-sm: 4px;
@@ -69,23 +70,38 @@ main{
     border-radius: var(--space-sm);
     border: solid 1px var(--text-secondary);
 
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    border: solid 1px var(--text);
+
     font-family: inherit;
 }
 #input-task::placeholder{
+    color: var(--text);
     text-align: center;
+    opacity: .75;
 }
 
 #add-btn{
-    background-color: var(--accent);
-    color: var(--background);
+    background-color: var(--accent-dark);
+    color: var(--text);
 
     padding: var(--space-md);
     border-radius: var(--space-sm);
     border: solid 1px var(--accent-hover);
     font-family: inherit; 
+    cursor: pointer;
+
+    transition: background-color .3s ease, color .3s ease, transform .3s ease;
 }
 #add-btn:hover{
-    background: var(--accent-hover);
+    background: var(--accent);
+    color: var(--background);
+    
+}
+#add-btn:active{
+    transform: scale(.95);
 }
 
 #task-list{
@@ -109,11 +125,18 @@ main{
     box-shadow: var(--shadow);
 
     padding: var(--space-md);
+    min-height: 50px;
+
+    
 }
 .task-info, .task-controls{
     display: flex;
     align-items: center;
     gap:var(--space-md);
+}
+.task-info{
+    flex: 1;
+    min-width: 0;
 }
 .task-controls button{
     display: flex;
@@ -133,16 +156,80 @@ main{
 }
 
 .save-btn:hover{
-    color: var(--success-blue);
+    color: var(--accent);
 }
 
 .delete-btn:hover{
     color: var(--danger);
 }
 .task-controls button:active{
-    transform: scale(.8);
+    transform: scale(.9);
 }
-
 .btn-text{
     display: none;
+}
+input[type="checkbox"]{
+    flex-shrink: 0;
+    appearance: none;
+
+    width: 18px;
+    height: 18px;
+
+    border: 2px solid var(--text-secondary);
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    display: grid;
+    place-content: center;
+}
+input[type="checkbox"]::before{
+    content: "";
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+    background-color: var(--accent);
+
+    transform: scale(0);
+
+    transition: transform .2s ease;
+}
+input[type="checkbox"]:checked::before{
+    transform: scale(1);
+}
+input[type="checkbox"]:checked{
+    border-color: var(--accent);
+}
+.completed{
+    text-decoration: line-through;
+    color: var(--text-secondary);
+    opacity: .7;
+}
+.edit-input{
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: var(--text);
+    font-family: inherit;
+    font-size: inherit;
+
+    width: 100%;
+    line-height: 1.2;
+    cursor: text;
+    padding: 0;
+
+    caret-color: var(--accent);
+}
+.edit-input:focus{
+    background: transparent;
+    outline: none;
+    color: var(--text);
+}
+.task-name{
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    
 }

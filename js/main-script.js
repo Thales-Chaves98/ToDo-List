@@ -87,7 +87,7 @@ function renderTasks(){
             taskContent = `
             <div class="task-info">
                 <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
-                <span class="task-name">${task.taskName}</span>
+                <span class="task-name ${task.done ? 'completed' : ''}">${task.taskName}</span>
             </div>
             <div class="task-controls">
                 <button class="edit-btn" data-id="${task.id}">
