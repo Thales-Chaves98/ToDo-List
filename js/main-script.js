@@ -4,6 +4,8 @@ const taskInput = document.getElementById("input-task");
 let tasks = [];
 let nextId = 1;
 
+let editingTaskId = null;
+
 form.addEventListener("submit",  (event) => {
     event.preventDefault();
 
@@ -31,20 +33,66 @@ function renderTasks(){
 
     tasks.forEach((task) => {
         const taskLi = document.createElement("li");
-        taskLi.classList.add("task-item")
-        taskLi.innerHTML = `
+        taskLi.classList.add("task-item");
+        let taskContent;
+
+        if(task.id === editingTaskId){
+            taskContent = `
+            <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
+            <input class="edit-input" value="${task.taskName}">
+            <button class="save-btn">Salvar</button>
+            <button class="delete-btn">Excluir</button>
+        `;
+        } else {
+            taskContent = `
             <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
             <span class="task-name">${task.taskName}</span>
             <button class="edit-btn">Editar</button>
             <button class="delete-btn">Excluir</button>
         `;
+        };
+
+        taskLi.innerHTML = taskContent
         listContainer.appendChild(taskLi);
 
-        const checkbox = taskLi.querySelector("input");
+        const checkbox = taskLi.querySelector('input[type="checkbox"]');
         checkbox.addEventListener("change", () => {
             task.done = !task.done;
             renderTasks();
-            console.log(task.id + " " + task.done);
         });
+
+        const deleteBtn = taskLi.querySelector(".delete-btn");
+        deleteBtn.addEventListener("click", () => {
+            tasks = tasks.filter((taskItem) => {
+                return taskItem.id !== task.id;
+            });
+            if(editingTaskId === task.id){
+                editingTaskId = null;
+            }
+            
+            renderTasks();
+        });
+
+        const editBtn = taskLi.querySelector(".edit-btn");
+        if(editBtn){
+            editBtn.addEventListener("click", () => {
+            editingTaskId = task.id;
+            renderTasks();
+        });
+        };
+
+        const saveBtn = taskLi.querySelector(".save-btn");
+        if(saveBtn){
+            saveBtn.addEventListener("click", () => {
+                const editInput = taskLi.querySelector(".edit-input");
+                const newTaskName = editInput.value.trim();
+                if(newTaskName ===""){
+                    return;
+                }
+                task.taskName = newTaskName;
+                editingTaskId = null;
+                renderTasks();
+            });
+        };
     });
 }
