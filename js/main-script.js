@@ -58,7 +58,7 @@ taskList.addEventListener("change", (event) =>{
 });
 
 function renderTasks(){
-    listContainer.textContent = "";
+    taskList.textContent = "";
 
     tasks.forEach((task) => {
         const taskLi = document.createElement("li");
@@ -82,7 +82,7 @@ function renderTasks(){
         };
 
         taskLi.innerHTML = taskContent
-        listContainer.appendChild(taskLi);
+        taskList.appendChild(taskLi);
     });
 }
 
