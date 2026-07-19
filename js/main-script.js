@@ -57,8 +57,7 @@ function renderTasks(){
 
         const checkbox = taskLi.querySelector('input[type="checkbox"]');
         checkbox.addEventListener("change", () => {
-            task.done = !task.done;
-            renderTasks();
+            toggleTask(task.id);
         });
 
         const deleteBtn = taskLi.querySelector(".delete-btn");
@@ -69,7 +68,7 @@ function renderTasks(){
             if(editingTaskId === task.id){
                 editingTaskId = null;
             }
-            
+
             renderTasks();
         });
 
@@ -95,4 +94,15 @@ function renderTasks(){
             });
         };
     });
+}
+
+function toggleTask(taskId){
+    const t = tasks.find((item) => {
+        return item.id === taskId;
+    });
+    if(!t){
+        return;
+    };
+    t.done = !t.done;
+    renderTasks();
 }
