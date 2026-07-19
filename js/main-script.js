@@ -55,42 +55,30 @@ function renderTasks(){
         taskLi.innerHTML = taskContent
         listContainer.appendChild(taskLi);
 
+        const editInput = taskLi.querySelector(".edit-input");
         const checkbox = taskLi.querySelector('input[type="checkbox"]');
-        checkbox.addEventListener("change", () => {
+        if(checkbox){
+            checkbox.addEventListener("change", () => {
             toggleTask(task.id);
         });
+        };
 
         const deleteBtn = taskLi.querySelector(".delete-btn");
         deleteBtn.addEventListener("click", () => {
-            tasks = tasks.filter((taskItem) => {
-                return taskItem.id !== task.id;
-            });
-            if(editingTaskId === task.id){
-                editingTaskId = null;
-            }
-
-            renderTasks();
+            deleteTask(task.id);
         });
 
         const editBtn = taskLi.querySelector(".edit-btn");
         if(editBtn){
             editBtn.addEventListener("click", () => {
-            editingTaskId = task.id;
-            renderTasks();
+            editTask(task.id);
         });
         };
 
         const saveBtn = taskLi.querySelector(".save-btn");
         if(saveBtn){
             saveBtn.addEventListener("click", () => {
-                const editInput = taskLi.querySelector(".edit-input");
-                const newTaskName = editInput.value.trim();
-                if(newTaskName ===""){
-                    return;
-                }
-                task.taskName = newTaskName;
-                editingTaskId = null;
-                renderTasks();
+                saveEditTask(task.id, editInput);
             });
         };
     });
@@ -104,5 +92,39 @@ function toggleTask(taskId){
         return;
     };
     t.done = !t.done;
+    renderTasks();
+}
+
+function deleteTask(taskId){
+    tasks = tasks.filter((t) => {
+        return t.id !== taskId;
+    });
+
+    if(editingTaskId === taskId){
+        editingTaskId = null;
+    }
+    renderTasks();
+}
+
+function editTask(taskId){
+    editingTaskId = taskId;
+    renderTasks();
+}
+
+function saveEditTask(taskId, editInput){
+    const t = tasks.find((item) => {
+        return item.id === taskId;
+    });
+
+    if(!t){
+        return;
+    }
+
+    const newTaskName = editInput.value.trim();
+    if(newTaskName ===""){
+        return;
+    }
+    t.taskName = newTaskName;
+    editingTaskId = null;
     renderTasks();
 }
