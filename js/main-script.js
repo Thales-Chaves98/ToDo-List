@@ -21,8 +21,9 @@ form.addEventListener("submit",  (event) => {
         done,
     };
     tasks.push(task);
-    taskInput.value = "";
     nextId++;
+    saveTasks();
+    taskInput.value = "";
     renderTasks();
     
 });
@@ -92,6 +93,7 @@ function toggleTask(taskId){
         return;
     };
     t.done = !t.done;
+    saveTasks();
     renderTasks();
 }
 
@@ -103,11 +105,13 @@ function deleteTask(taskId){
     if(editingTaskId === taskId){
         editingTaskId = null;
     }
+    saveTasks();
     renderTasks();
 }
 
 function editTask(taskId){
     editingTaskId = taskId;
+    saveTasks();
     renderTasks();
 }
 
@@ -128,3 +132,18 @@ function saveEditTask(taskId, editInput){
     editingTaskId = null;
     renderTasks();
 }
+
+function saveTasks(){
+    localStorage.setItem("tasks" , JSON.stringify(tasks));
+}
+
+function loadTasks(){
+    const savedTasks = localStorage.getItem("tasks");
+
+    if(savedTasks){
+        tasks = JSON.parse(savedTasks);
+    }
+}
+
+loadTasks();
+renderTasks();
