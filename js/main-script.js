@@ -1,5 +1,6 @@
 const form = document.querySelector(".task-form");
 const taskInput = document.getElementById("input-task");
+const taskList = document.getElementById("tasks-container");
 
 let tasks = [];
 let nextId = 1;
@@ -28,8 +29,35 @@ form.addEventListener("submit",  (event) => {
     
 });
 
+taskList.addEventListener("click", (event) => {
+    const id = Number(event.target.dataset.id);
+
+    if(event.target.classList.contains("delete-btn")){
+        deleteTask(id);
+        return;
+    }
+    if(event.target.classList.contains("edit-btn")){
+        editTask(id);
+        return;
+    }
+    if(event.target.classList.contains("save-btn")){
+        const taskLi = event.target.closest(".task-item");
+        const editInput = taskLi.querySelector(".edit-input");
+        saveEditTask(id, editInput);
+        return;
+    }
+
+});
+
+taskList.addEventListener("change", (event) =>{
+    const id = Number(event.target.dataset.id);
+
+    if(event.target.matches("input[type='checkbox']")){
+        toggleTask(id);
+    };    
+});
+
 function renderTasks(){
-    const listContainer = document.getElementById("tasks-container");
     listContainer.textContent = "";
 
     tasks.forEach((task) => {
@@ -40,48 +68,21 @@ function renderTasks(){
         if(task.id === editingTaskId){
             taskContent = `
             <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
-            <input class="edit-input" value="${task.taskName}">
-            <button class="save-btn">Salvar</button>
-            <button class="delete-btn">Excluir</button>
+            <input class="edit-input" value="${task.taskName}" data-id="${task.id}">
+            <button class="save-btn" data-id="${task.id}">Salvar</button>
+            <button class="delete-btn" data-id="${task.id}">Excluir</button>
         `;
         } else {
             taskContent = `
             <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
             <span class="task-name">${task.taskName}</span>
-            <button class="edit-btn">Editar</button>
-            <button class="delete-btn">Excluir</button>
+            <button class="edit-btn" data-id="${task.id}">Editar</button>
+            <button class="delete-btn" data-id="${task.id}">Excluir</button>
         `;
         };
 
         taskLi.innerHTML = taskContent
         listContainer.appendChild(taskLi);
-
-        const editInput = taskLi.querySelector(".edit-input");
-        const checkbox = taskLi.querySelector('input[type="checkbox"]');
-        if(checkbox){
-            checkbox.addEventListener("change", () => {
-            toggleTask(task.id);
-        });
-        };
-
-        const deleteBtn = taskLi.querySelector(".delete-btn");
-        deleteBtn.addEventListener("click", () => {
-            deleteTask(task.id);
-        });
-
-        const editBtn = taskLi.querySelector(".edit-btn");
-        if(editBtn){
-            editBtn.addEventListener("click", () => {
-            editTask(task.id);
-        });
-        };
-
-        const saveBtn = taskLi.querySelector(".save-btn");
-        if(saveBtn){
-            saveBtn.addEventListener("click", () => {
-                saveEditTask(task.id, editInput);
-            });
-        };
     });
 }
 
@@ -93,8 +94,7 @@ function toggleTask(taskId){
         return;
     };
     t.done = !t.done;
-    saveTasks();
-    renderTasks();
+    refresh();
 }
 
 function deleteTask(taskId){
@@ -105,8 +105,7 @@ function deleteTask(taskId){
     if(editingTaskId === taskId){
         editingTaskId = null;
     }
-    saveTasks();
-    renderTasks();
+    refresh();
 }
 
 function editTask(taskId){
@@ -158,6 +157,11 @@ function loadTasks(){
         tasks = JSON.parse(savedTasks);
         updateNextId();
     }
+}
+
+function refresh(){
+    saveTasks();
+    renderTasks();
 }
 
 loadTasks();
