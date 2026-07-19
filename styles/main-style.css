@@ -17,7 +17,8 @@
     --accent: #D3AF37 ;
     --accent-hover: #b59410;
     --danger: #EF4444;
-    --success: #22C55E;
+    --success-green: #087e33;
+    --success-blue: #5cc1f0;
 
 
     --space-sm: 4px;
@@ -25,7 +26,7 @@
     --space-lg: 16px;
     --space-xl: 24px;
 
-    --shadow: 0 4px 12px rgb(0 0 0 / .25);
+    --shadow: 2px 3px 3px hsla(214, 24%, 31%, 0.4);
 }
 
 body{
@@ -54,11 +55,12 @@ main{
 }
 
 .task-actions{
-    width: 100%;;
+    width: 100%;
 }
 .task-form{
     display: flex;
     gap: var(--space-md);
+    align-items: center;
 }
 #input-task{
     flex: 1;
@@ -87,8 +89,60 @@ main{
 }
 
 #task-list{
-    margin: auto;
+    margin-top: var(--space-lg);
+    width: 100%;
 }
 #tasks-container{
+    display: flex;
+    flex-direction: column;
     font-family: "Montserrat";
+    list-style: none;
+    gap: var(--space-md);
+}
+.task-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: var(--surface);
+    border-radius: var(--space-md);
+    box-shadow: var(--shadow);
+
+    padding: var(--space-md);
+}
+.task-info, .task-controls{
+    display: flex;
+    align-items: center;
+    gap:var(--space-md);
+}
+.task-controls button{
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: var(--space-sm);
+
+    transition: color .2s ease, transform .15s ease;
+}
+.edit-btn:hover{
+    color: var(--accent);
+}
+
+.save-btn:hover{
+    color: var(--success-blue);
+}
+
+.delete-btn:hover{
+    color: var(--danger);
+}
+.task-controls button:active{
+    transform: scale(.8);
+}
+
+.btn-text{
+    display: none;
 }

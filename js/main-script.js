@@ -67,17 +67,39 @@ function renderTasks(){
 
         if(task.id === editingTaskId){
             taskContent = `
-            <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
-            <input class="edit-input" value="${task.taskName}" data-id="${task.id}">
-            <button class="save-btn" data-id="${task.id}">Salvar</button>
-            <button class="delete-btn" data-id="${task.id}">Excluir</button>
+            <div class="task-info">
+                <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
+                <input class="edit-input" value="${task.taskName}" data-id="${task.id}">
+            </div>
+            <div class="task-controls">
+                <button class="save-btn" data-id="${task.id}">
+                <span class="material-symbols-outlined">save_as</span>
+                <span class="btn-text">SALVAR</span>
+                </button>
+
+                <button class="delete-btn" data-id="${task.id}">
+                <span class="material-symbols-outlined">delete_forever</span>
+                <span class="btn-text">EXCLUIR</span>
+                </button>
+            </div>
         `;
         } else {
             taskContent = `
-            <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
-            <span class="task-name">${task.taskName}</span>
-            <button class="edit-btn" data-id="${task.id}">Editar</button>
-            <button class="delete-btn" data-id="${task.id}">Excluir</button>
+            <div class="task-info">
+                <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
+                <span class="task-name">${task.taskName}</span>
+            </div>
+            <div class="task-controls">
+                <button class="edit-btn" data-id="${task.id}">
+                <span class="material-symbols-outlined">edit</span>
+                <span class="btn-text">EDITAR</span>
+                </button>
+
+                <button class="delete-btn" data-id="${task.id}">
+                <span class="material-symbols-outlined">delete_forever</span>
+                <span class="btn-text">EXCLUIR</span>
+                </button>
+            </div>
         `;
         };
 
