@@ -111,7 +111,6 @@ function deleteTask(taskId){
 
 function editTask(taskId){
     editingTaskId = taskId;
-    saveTasks();
     renderTasks();
 }
 
@@ -130,7 +129,22 @@ function saveEditTask(taskId, editInput){
     }
     t.taskName = newTaskName;
     editingTaskId = null;
+
+    saveTasks();
     renderTasks();
+}
+
+function updateNextId(){
+    if(tasks.length === 0){
+        nextId = 1;
+        return;
+    }
+
+    const maxId = Math.max(...tasks.map((t) => {
+        return t.id;
+    }));
+
+    nextId = maxId + 1;
 }
 
 function saveTasks(){
@@ -142,6 +156,7 @@ function loadTasks(){
 
     if(savedTasks){
         tasks = JSON.parse(savedTasks);
+        updateNextId();
     }
 }
 
