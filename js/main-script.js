@@ -30,23 +30,22 @@ form.addEventListener("submit",  (event) => {
 });
 
 taskList.addEventListener("click", (event) => {
-    const id = Number(event.target.dataset.id);
+    const button = event.target.closest("button");
 
-    if(event.target.classList.contains("delete-btn")){
+    if(!button) return;
+
+    const id = Number(button.dataset.id);
+
+    if(button.classList.contains("delete-btn")){
         deleteTask(id);
         return;
-    }
-    if(event.target.classList.contains("edit-btn")){
+    } else if(button.classList.contains("edit-btn")){
         editTask(id);
-        return;
-    }
-    if(event.target.classList.contains("save-btn")){
-        const taskLi = event.target.closest(".task-item");
-        const editInput = taskLi.querySelector(".edit-input");
-        saveEditTask(id, editInput);
-        return;
-    }
+    } else if(button.classList.contains("save-btn")){
+        const editInput = button.closest(".task-item").querySelector(".edit-input");
 
+        saveEditTask(id, editInput);
+    }
 });
 
 taskList.addEventListener("change", (event) =>{
