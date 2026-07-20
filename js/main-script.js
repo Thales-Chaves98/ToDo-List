@@ -6,6 +6,7 @@ let tasks = [];
 let nextId = 1;
 
 let editingTaskId = null;
+let deletingTaskId = null;
 
 form.addEventListener("submit",  (event) => {
     event.preventDefault();
@@ -37,7 +38,7 @@ taskList.addEventListener("click", (event) => {
     const id = Number(button.dataset.id);
 
     if(button.classList.contains("delete-btn")){
-        deleteTask(id);
+        confirmDeleteTask(id);
         return;
     } else if(button.classList.contains("edit-btn")){
         editTask(id);
@@ -188,6 +189,14 @@ function saveEditTask(taskId, editInput){
 
     saveTasks();
     renderTasks();
+}
+
+function confirmDeleteTask(taskId){
+    const confirmed = confirm("Excluir Tarefa ?");
+
+    if(!confirmed) return;
+
+    deleteTask(taskId);
 }
 
 function updateNextId(){
