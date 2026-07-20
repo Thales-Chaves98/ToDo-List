@@ -2,6 +2,11 @@ const form = document.querySelector(".task-form");
 const taskInput = document.getElementById("input-task");
 const taskList = document.getElementById("tasks-container");
 
+//Modal
+const deleteModal = document.getElementById("delete-modal");
+const confirmDeleteBtn = document.getElementById("confirm-delete");
+const cancelDeleteBtn = document.getElementById("cancel-delete");
+
 let tasks = [];
 let nextId = 1;
 
@@ -82,6 +87,20 @@ taskInput.addEventListener("keydown", (event) =>{
 
     taskInput.value = "";
     taskInput.focus();
+});
+
+cancelDeleteBtn.addEventListener("click", () =>{
+    deletingTaskId = null;
+    deleteModal.hidden = true;
+});
+
+confirmDeleteBtn.addEventListener("click", () =>{
+    if(deletingTaskId !== null){
+        deleteTask(deletingTaskId);
+    }
+
+    deletingTaskId = null;
+    deleteModal.hidden = true;
 });
 
 function renderTasks(){
@@ -192,11 +211,8 @@ function saveEditTask(taskId, editInput){
 }
 
 function confirmDeleteTask(taskId){
-    const confirmed = confirm("Excluir Tarefa ?");
-
-    if(!confirmed) return;
-
-    deleteTask(taskId);
+    deletingTaskId = taskId;
+    deleteModal.hidden = false;
 }
 
 function updateNextId(){
