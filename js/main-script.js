@@ -48,12 +48,39 @@ taskList.addEventListener("click", (event) => {
     }
 });
 
+taskList.addEventListener("keydown", (event) =>{
+    if(!event.target.classList.contains("edit-input")){
+        return
+    };
+
+    const id = Number(event.target.dataset.id);
+
+    if(event.key === "Enter"){
+        saveEditTask(id, event.target);
+    }
+    if(event.key === "Escape"){
+        editingTaskId = null;
+        renderTasks();
+    }
+});
+
 taskList.addEventListener("change", (event) =>{
     const id = Number(event.target.dataset.id);
 
     if(event.target.matches("input[type='checkbox']")){
         toggleTask(id);
     };    
+});
+
+taskInput.addEventListener("keydown", (event) =>{
+    if(event.key !== "Escape"){
+        return;
+    }
+
+    event.preventDefault();
+
+    taskInput.value = "";
+    taskInput.focus();
 });
 
 function renderTasks(){
@@ -132,6 +159,15 @@ function deleteTask(taskId){
 function editTask(taskId){
     editingTaskId = taskId;
     renderTasks();
+
+    const editInput = document.querySelector(".edit-input");
+
+    if(editInput){
+        editInput.focus();
+
+        const end = editInput.value.length;
+        editInput.setSelectionRange(end, end);
+    }
 }
 
 function saveEditTask(taskId, editInput){
