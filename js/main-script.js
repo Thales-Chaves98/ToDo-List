@@ -109,14 +109,27 @@ function renderTasks(){
     tasks.forEach((task) => {
         const taskLi = document.createElement("li");
         taskLi.classList.add("task-item");
+        
         let taskContent;
 
         if(task.id === editingTaskId){
             taskContent = `
             <div class="task-info">
-                <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
+                <label class="checkbox-container">
+                    <input id="task-${task.id}" type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
+
+                    <svg viewBox="0 0 64 64">
+                        <path 
+                            d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
+                            pathLength="575.0541381835938"
+                            class="checkbox-path">
+                        </path>
+                    </svg>
+                </label> 
+
                 <input class="edit-input" value="${task.taskName}" data-id="${task.id}">
             </div>
+
             <div class="task-controls">
                 <button class="save-btn" data-id="${task.id}">
                 <span class="material-symbols-outlined">save_as</span>
@@ -132,9 +145,21 @@ function renderTasks(){
         } else {
             taskContent = `
             <div class="task-info">
-                <input type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
-                <span class="task-name ${task.done ? 'completed' : ''}">${task.taskName}</span>
+                <label class="checkbox-container">
+                    <input  id="task-${task.id}" type="checkbox" data-id="${task.id}" ${task.done ? "checked" : ""}>
+                    <svg viewBox="0 0 64 64">
+                        <path 
+                            d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
+                            pathLength="575.0541381835938"
+                            class="checkbox-path">
+                        </path>
+                    </svg>
+                </label>
+                <label 
+                    for="task-${task.id}" class="task-name ${task.done ? 'completed' : ''}"> ${task.taskName}
+                </label>
             </div>
+
             <div class="task-controls">
                 <button class="edit-btn" data-id="${task.id}">
                 <span class="material-symbols-outlined">edit</span>
@@ -162,7 +187,23 @@ function toggleTask(taskId){
         return;
     };
     t.done = !t.done;
-    refresh();
+    
+    saveTasks();
+
+     const taskName = document.querySelector(
+        `label[for="task-${taskId}"]`
+    );
+
+
+    if(taskName){
+        taskName.classList.toggle(
+            "completed",
+            t.done
+        );
+    }
+
+    console.log(t.done);
+
 }
 
 function deleteTask(taskId){

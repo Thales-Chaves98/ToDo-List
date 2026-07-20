@@ -169,6 +169,7 @@ main{
 .btn-text{
     display: none;
 }
+/* Novo checkbox do UIverse ira substituir esse
 input[type="checkbox"]{
     flex-shrink: 0;
     appearance: none;
@@ -202,7 +203,68 @@ input[type="checkbox"]:checked::before{
 }
 input[type="checkbox"]:checked{
     border-color: var(--accent);
+}*/
+
+/*checkbox do UIverse 
+https://uiverse.io/SelfMadeSystem/green-bobcat-29 
+*/
+
+.checkbox-container{
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
 }
+
+.checkbox-container input{
+    display: none;
+}
+
+
+.checkbox-container svg{
+    overflow: visible;
+
+    width: 22px;
+    height: 22px;
+
+    transition: transform .15s ease;
+}
+.checkbox-container:active svg{
+    transform: scale(.85);
+}
+
+.checkbox-path{
+
+    fill: none;
+
+    stroke: var(--text);
+
+    stroke-width: 6;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+
+    transition: 
+        stroke .2s ease,
+        stroke-dasharray .5s ease,
+        stroke-dashoffset .5s ease;
+
+
+    stroke-dasharray: 241 9999999;
+    stroke-dashoffset: 0;
+}
+
+.checkbox-container input:checked ~ svg .checkbox-path{
+
+    stroke: var(--accent);
+
+    stroke-dasharray: 70.5096664428711 9999999;
+
+    stroke-dashoffset: -262.2723388671875;
+}
+
+
 .completed{
     text-decoration: line-through;
     color: var(--text-secondary);
