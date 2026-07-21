@@ -304,6 +304,8 @@ https://uiverse.io/SelfMadeSystem/green-bobcat-29
     flex: 1;
     line-height: 1.2;
     overflow-wrap: anywhere;
+
+    cursor: pointer;
     
 }
 
