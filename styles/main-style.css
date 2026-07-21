@@ -31,6 +31,22 @@
     --shadow: 2px 3px 3px hsla(214, 24%, 31%, 0.4);
 }
 
+.light-theme{
+    --background:  #E5E5E5;
+    --surface:  #afadad;
+    --text: #050505;
+    --text-secondary: #1F2833;
+    --accent-gold: #D3AF37 ;
+    --accent-gold-hover: #b59410;
+    --danger: #a71212;
+    --danger-hover: #5a0707;
+    --success: #087e33;
+    --accent: #0a7e92;
+    --accent-dark: #0c5070be;
+
+    --shadow: 2px 3px 3px hsla(213, 62%, 72%, 0.4);
+}
+
 body{
     display: flex;
     flex-direction: column;
@@ -45,12 +61,10 @@ body{
 
 header{
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
 
-    height: 30px;
-
-    padding-inline: 20px;
+    padding: var(--space-md);
 }
 .theme-btn{
     display: flex;
@@ -60,8 +74,6 @@ header{
     background: none;  
     border: none;
     color: var(--text);
-
-    font-size: 50px;
 }
 .theme-btn:hover{
     color: var(--accent-gold);
@@ -81,14 +93,6 @@ main{
 
     width: 90vw;
     margin-inline: auto;
-}
-.form-title{
-    font-family: "Cinzel";
-    font-size: 1.7em;
-    text-align: center;
-
-    margin-bottom: var(--space-md);
-    
 }
 
 .task-actions{
@@ -129,7 +133,7 @@ main{
 
     padding: 0 var(--space-md);
     border-radius: var(--space-sm);
-    border: solid 1px var(--accent-hover);
+    border: none;
     font-family: inherit; 
     cursor: pointer;
     height: 40px;
@@ -306,7 +310,11 @@ https://uiverse.io/SelfMadeSystem/green-bobcat-29
 footer{
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;  
+    
+    margin-top: var(--space-sm);
+
+    background: var(--surface);
 }
 .footer-text{
     color: var(--text-secondary);

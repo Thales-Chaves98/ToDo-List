@@ -1,3 +1,6 @@
+const themeBtn = document.querySelector(".theme-btn");
+const themeIcon = document.querySelector(".theme-icon");
+
 const form = document.querySelector(".task-form");
 const taskInput = document.getElementById("input-task");
 const taskList = document.getElementById("tasks-container");
@@ -12,6 +15,13 @@ let nextId = 1;
 
 let editingTaskId = null;
 let deletingTaskId = null;
+
+themeBtn.addEventListener("click", () =>{
+    const newTheme = document.body.classList.contains("light-theme") ? "dark" : "light";
+
+    applyTheme(newTheme);
+    saveTheme(newTheme);
+});
 
 form.addEventListener("submit",  (event) => {
     event.preventDefault();
@@ -287,5 +297,45 @@ function refresh(){
     renderTasks();
 }
 
+function applyTheme(theme){
+
+    if(theme === "light"){
+
+        document.body.classList.add("light-theme");
+        themeIcon.textContent = "dark_mode";
+
+    }else{
+
+        document.body.classList.remove("light-theme");
+        themeIcon.textContent = "brightness_7";
+
+    }
+
+}
+
+function saveTheme(theme){
+
+    localStorage.setItem("theme", theme);
+
+}
+
+function loadTheme(){
+
+    const savedTheme = localStorage.getItem("theme");
+
+    if(savedTheme){
+
+        applyTheme(savedTheme);
+
+    }else{
+
+        applyTheme("dark");
+
+    }
+
+}
+
+loadTheme();
 loadTasks();
 renderTasks();
+
