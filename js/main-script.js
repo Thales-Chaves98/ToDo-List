@@ -1,5 +1,4 @@
-const themeBtn = document.querySelector(".theme-btn");
-const themeIcon = document.querySelector(".theme-icon");
+const themeToggle = document.getElementById("theme-toggle");
 
 const form = document.querySelector(".task-form");
 const taskInput = document.getElementById("input-task");
@@ -16,8 +15,8 @@ let nextId = 1;
 let editingTaskId = null;
 let deletingTaskId = null;
 
-themeBtn.addEventListener("click", () =>{
-    const newTheme = document.body.classList.contains("light-theme") ? "dark" : "light";
+themeToggle.addEventListener("change", () => {
+    const newTheme = themeToggle.checked ? "dark" : "light";
 
     applyTheme(newTheme);
     saveTheme(newTheme);
@@ -302,15 +301,12 @@ function applyTheme(theme){
     if(theme === "light"){
 
         document.body.classList.add("light-theme");
-        themeIcon.textContent = "dark_mode";
-
+        themeToggle.checked = false;
     }else{
-
+        
         document.body.classList.remove("light-theme");
-        themeIcon.textContent = "brightness_7";
-
+        themeToggle.checked = true;
     }
-
 }
 
 function saveTheme(theme){
